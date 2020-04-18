@@ -1,0 +1,22 @@
+{
+  "name": "modelosderegressao",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dependencies.js",
+  "scripts": {
+	"py.install": "node ./internal/packaging/install.js",
+	"py.add": "node ./internal/packaging/add.js",
+	"py.rm": "node ./internal/packaging/remove.js",
+	"start": "py src/index.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexandreMPDias/ModelosDeRegressao.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexandreMPDias/ModelosDeRegressao/issues"
+  },
+  "homepage": "https://github.com/AlexandreMPDias/ModelosDeRegressao#readme"
+}
