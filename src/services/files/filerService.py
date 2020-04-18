@@ -28,19 +28,11 @@ class ReadService(WithLog):
 			datastore = json.load(f)
 			return datastore
 
-class WriteService():
-	def write_csv(self, path, content):
-		import pandas as pd
-		return numpy.array(pd.read_csv(filePath))
-
-	def write_txt(self, path):
-		with write(path, 'r') as f:
-			return f.read()
-
-	def writeJSON(self, path, content):
+class WriteService(WithLog):
+	def write_json(self, path, content):
 		import json
 		with open(path, "w") as outjsonfile:
-			json.dump(content, outjsonfile)
+			json.dump(content, outjsonfile, indent=4)
 
 class FilerServiceHelp():
 	def __init__(self, log):
@@ -59,6 +51,7 @@ class FilerService:
 		self.log = Log(debug_level)
 		self.help = FilerServiceHelp(self.log)
 		self.readService = ReadService(self.log)
+		self.writeService = WriteService(self.log)
 
 	def read(self, path):
 		try:
@@ -81,7 +74,21 @@ class FilerService:
 		except FileNotFoundError as fileNotFoundError:
 			log.error(f"File: {chalk.lightred(pretty_path)} was not found")
 			log.skip()
-			exit(1)
+			raise
+		except Exception as exp:
+			raise exp
+
+	def write(self, path, content):
+		try:
+			ext = self.help.get_extension(path)
+			pretty_path = path[2:]
+
+			log.info(f"write {chalk.lightred(pretty_path)}")
+			if(ext == '.json'):
+				self.writeService.write_json(path,content)
+			log.success(f"write {chalk.lightred(pretty_path)}")
+			return content
+
 		except Exception as exp:
 			raise exp
 
