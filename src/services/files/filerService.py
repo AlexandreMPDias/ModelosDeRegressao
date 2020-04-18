@@ -56,7 +56,7 @@ class FilerService:
 			ext = self.__help.get_extension(path)
 			pretty_path = path[2:]
 
-			__log.info(f"read {chalk.lightred(pretty_path)}")
+			self.__log.info(f"read {chalk.lightred(pretty_path)}")
 			content = None
 			if(ext == '.txt'):
 				content = self.__readService.read_txt(path)
@@ -67,11 +67,11 @@ class FilerService:
 			elif(ext == ''):
 				content = self.__readService.read_dir(path)
 
-			__log.success(f"read {chalk.lightred(pretty_path)}")
+			self.__log.success(f"read {chalk.lightred(pretty_path)}")
 			return content
 		except FileNotFoundError as fileNotFoundError:
-			__log.error(f"File: {chalk.lightred(pretty_path)} was not found")
-			__log.skip()
+			self.__log.error(f"File: {chalk.lightred(pretty_path)} was not found")
+			self.__log.skip()
 			raise
 		except Exception as exp:
 			raise exp
@@ -81,10 +81,10 @@ class FilerService:
 			ext = self.__help.get_extension(path)
 			pretty_path = path[2:]
 
-			__log.info(f"write {chalk.lightred(pretty_path)}")
+			self.__log.info(f"write {chalk.lightred(pretty_path)}")
 			if(ext == '.json'):
 				self.__writeService.write_json(path,content)
-			__log.success(f"write {chalk.lightred(pretty_path)}")
+			self.__log.success(f"write {chalk.lightred(pretty_path)}")
 			return content
 
 		except Exception as exp:
