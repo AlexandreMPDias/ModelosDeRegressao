@@ -1,0 +1,1 @@
+from src.services.mixins.dict from Serializable, DictClass

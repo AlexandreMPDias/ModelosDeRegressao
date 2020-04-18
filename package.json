@@ -7,7 +7,7 @@
 	"py.install": "node ./internal/packaging/install.js",
 	"py.add": "node ./internal/packaging/add.js",
 	"py.rm": "node ./internal/packaging/remove.js",
-	"start": "py src/index.py"
+	"start": "py ./index.py"
   },
   "repository": {
     "type": "git",
