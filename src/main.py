@@ -1,3 +1,4 @@
 import src.services.files as files
+from src.models.heartAttack import heartDisease
 
-print(files.Filer.read(files.paths.DATA_SET))
+heartDisease

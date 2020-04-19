@@ -14,7 +14,7 @@ class ReadService(WithLog):
 
 	def read_csv(self, path):
 		import pandas as pd
-		return pd.read_csv(path).dropna()
+		return pd.read_csv(path)
 
 	def read_txt(self, path):
 		with open(path, 'r') as f:
