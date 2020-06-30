@@ -1,4 +1,16 @@
 class DictClass:
+	def _access(self, kwargs = {}, key = "", defaultTo = None):
+		if key in kwargs:
+			return kwargs[key]
+		return defaultTo
+
+	def _accesor(self, kwargs):
+		def access(key, defaultTo = None):
+			if key in kwargs:
+				return kwargs[key]
+			return defaultTo
+		return access
+
 	def __getitem__(self, name):
 		return getattr(self, name)
 

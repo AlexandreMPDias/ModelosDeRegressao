@@ -1,4 +1,5 @@
 import src.services.files as files
-from src.models.heartAttack import heartDisease
+from src.models.heartDisease import heartDisease
+import matplotlib.pyplot as plt
 
-heartDisease
+heartDisease.describe.histogram()

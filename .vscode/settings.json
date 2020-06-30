@@ -5,5 +5,6 @@
 			"when": "$(basename).py"
 		},
 		"**/__pycache__/*.pyc": true
-	}
+	},
+	"python.pythonPath": "C:\\Users\\Alexandre\\envs\\modReg\\Scripts\\python.exe"
 }

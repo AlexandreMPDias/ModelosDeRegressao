@@ -1,1 +1,1 @@
-from src.services.mixins.dict from Serializable, DictClass
+from src.services.mixins.dict import Serializable, DictClass

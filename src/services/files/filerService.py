@@ -32,10 +32,19 @@ class WriteService(WithLog):
 		with open(path, "w") as outjsonfile:
 			json.dump(content, outjsonfile, indent=4)
 
+	def write_txt(self, path, content):
+		with open(path, 'w') as f:
+			f.write("\n".join(content))
+
+	def write_plot(self, path, plot):
+		proper_path = path[:-4]
+		plot.savefig(proper_path)
+	
+
 class FilerServiceHelp():
 	def __init__(self, __log):
 		self.__log = __log
-		self.supported_extensions = ['.txt', '.json', '.csv', '']
+		self.supported_extensions = ['.txt', '.json', '.csv','.fig', '']
 
 	def get_extension(self, path):
 		base, ext = os.path.splitext(path)
@@ -46,13 +55,23 @@ class FilerServiceHelp():
 
 class FilerService:
 	def __init__(self, debug_level = 0):
+		self.targetDir = "output"
 		self.__log = Log(debug_level)
 		self.__help = FilerServiceHelp(self.__log)
 		self.__readService = ReadService(self.__log)
 		self.__writeService = WriteService(self.__log)
 
-	def read(self, path):
+	def __parsePath(self, path = ""):
+		p = path.split("/")
+		v_p = []
+		for v_p_i in p:
+			if v_p_i != "":
+				v_p.append(v_p_i)
+		return os.path.join(*v_p)
+
+	def read(self, p):
 		try:
+			path = self.__parsePath(p)
 			ext = self.__help.get_extension(path)
 			pretty_path = path[2:]
 
@@ -76,14 +95,19 @@ class FilerService:
 		except Exception as exp:
 			raise exp
 
-	def write(self, path, content):
+	def write(self, p, content):
 		try:
+			path = os.path.join(self.targetDir, self.__parsePath(p))
 			ext = self.__help.get_extension(path)
 			pretty_path = path[2:]
 
 			self.__log.info(f"write {chalk.lightred(pretty_path)}")
 			if(ext == '.json'):
 				self.__writeService.write_json(path,content)
+			if(ext == '.txt'):
+				self.__writeService.write_txt(path,content)
+			elif(ext == '.fig'):
+				self.__writeService.write_plot(path, content)
 			self.__log.success(f"write {chalk.lightred(pretty_path)}")
 			return content
 
