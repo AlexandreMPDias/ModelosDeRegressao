@@ -39,6 +39,9 @@ class WriteService(WithLog):
 	def write_plot(self, path, plot):
 		proper_path = path[:-4]
 		plot.savefig(proper_path)
+
+		print((f"Figure {chalk.cyan(proper_path)} was created"))
+
 	
 
 class FilerServiceHelp():

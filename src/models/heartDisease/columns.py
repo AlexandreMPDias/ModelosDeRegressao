@@ -33,4 +33,15 @@ class HeartColumn(_Column):
 		_Column.GLUCOSE 
 	]
 
+	continuous = [
+		_Column.AGE,
+		_Column.CIGSPER_DAY,
+		_Column.TOT_CHOL,
+		_Column.SYS_BP,
+		_Column.DIA_BP,
+		_Column.BMI,
+		_Column.HEART_RATE,
+		_Column.GLUCOSE 
+	]
+
 	
