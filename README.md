@@ -4,7 +4,7 @@
 # Objetivo
 Encontrar a probabilidade de uma pessoa ter uma doença arterial coronária, dadas as características (demográficas, comportamentais e biológicas) dela.
 ## Variável Dependente
-A probabilidade de uma pessoa ter uma doença arterial coronária ao longo dos próximos 10 anos de vida.
+Uma variável boolean que vale 1 se o indíviduo tiver tido uma doença arterial coronária ao longo de 10 anos de vida após fazer esses exames.
 ## Variáveis Independentes
 |       Escopo        |    Varíavel     |                             Descrição                             |      ...      |
 | :-----------------: | :-------------: | :---------------------------------------------------------------: | :-----------: |
