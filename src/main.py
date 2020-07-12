@@ -1,6 +1,7 @@
 import src.services.files as files
 from src.models.heartDisease import heartDisease as hD
 import matplotlib.pyplot as plt
+from src.models.heartDisease.prova.multiCol import Klass
 
 def histograms():
 	hD.describe.histogram(

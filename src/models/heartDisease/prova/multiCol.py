@@ -8,7 +8,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.mlab as mlab
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
-from src.models.heartDisease.logistic import LogisticReg
+from src.models.heartDisease.prova.logistic import LogisticReg
 
 class Klass:
 	def __init__(self, data):
