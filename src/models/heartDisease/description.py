@@ -63,11 +63,11 @@ class Description(DictClass):
 			return out
 		return skew(data[col].values)
 
-	def all(self, transpose = False):
+	def all(self, transpose = False, rows = None):
 		data = []
 
 		cols = ['count', 'mean', 'std', 'max', 'min', 'kurtosis', 'skew']
-		rows = HeartColumn.options
+		rows = HeartColumn.options if rows is None else rows
 
 		for p in rows:
 			data.append([
@@ -81,12 +81,84 @@ class Description(DictClass):
 			])
 
 		return pd.DataFrame(data, columns = cols, index = rows)
-		
 
+	def getSliceMethod(self, col):
+		if(col == HeartColumn.SEX):
+			return self.__slice_binary
+		elif(col == HeartColumn.AGE):
+			return self.__slice_continuous
+		elif(col == HeartColumn.EDUCATION):
+			return self.__slice_continuous
+		elif(col == HeartColumn.CURRENT_SMOKER):
+			return self.__slice_binary
+		elif(col == HeartColumn.CIGSPER_DAY):
+			return self.__slice_continuous
+		elif(col == HeartColumn.BPMEDS):
+			return self.__slice_binary
+		elif(col == HeartColumn.PREVALENT_STROKE):
+			return self.__slice_binary
+		elif(col == HeartColumn.PREVALENT_HYP):
+			return self.__slice_binary
+		elif(col == HeartColumn.DIABETES):
+			return self.__slice_binary
+		elif(col == HeartColumn.TOT_CHOL):
+			return self.__slice_continuous
+		elif(col == HeartColumn.SYS_BP):
+			return self.__slice_continuous
+		elif(col == HeartColumn.DIA_BP):
+			return self.__slice_continuous
+		elif(col == HeartColumn.BMI):
+			return self.__slice_continuous
+		elif(col == HeartColumn.HEART_RATE):
+			return self.__slice_continuous
+		elif(col == HeartColumn.GLUCOSE):
+			return self.__slice_continuous
+		return None
+
+	def slice(self, col):
+		method = self.getSliceMethod(col)
+		if(method is not None):
+			return method(self.__shaper.data, col)
+		print(method)
+		return []
+
+	def slice_avg(self, col):
+		dfs = self.slice(col)
+		avgs = [i[col].mean() for i in dfs]
+		ys = [i["TenYearCHD"].mean() for i in dfs]
+		
+		return avgs, ys
+
+
+
+	def __slice_continuous(self, data, col):
+		dfs = []
+
+		_max = data[col].max()
+		_min = data[col].min()
+		delta = (_max - _min)/20
+
+
+		for i in range(0, 20):
+			lower_bounded = data[data[col] < (i+1) * delta]
+			upper_bounded = lower_bounded[lower_bounded[col] > i * delta]
+
+			dfs.append(upper_bounded)
+
+		return dfs
+
+	def __slice_binary(self, data, col):
+		x = data[col]
+
+		x_1 = data[x == 1]
+		x_0 = data[x == 0]
+
+		return x_0, x_1
+		
 	def histogram(self, col = None, **histOptions):
 		self.__graph.histogram(col, histOptions=dict(
 			save = True,
-			output = "histograms/" + self._access(histOptions, 'output', ""),
+			output = "output/histograms/" + self._access(histOptions, 'output', ""),
 			transform = self._access(histOptions, 'transform', None),
 		))
 	

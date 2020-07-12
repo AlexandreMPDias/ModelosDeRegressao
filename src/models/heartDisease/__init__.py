@@ -19,4 +19,7 @@ class HeartDiseaseModel(HeartColumn):
 	def histogram(self, features = None):
 		self.__graph.histogram(features, multi=True)
 
+	def draw(self, *args):
+		self.__graph.draw(*args)
+
 heartDisease = HeartDiseaseModel()

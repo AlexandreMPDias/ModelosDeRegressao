@@ -23,6 +23,7 @@
 	"scipy": "1.4.1",
 	"six": "1.14.0",
 	"sklearn": "0.0",
+	"stats": "0.1.2a0",
 	"statsmodels": "0.11.1",
 	"threadpoolctl": "2.1.0",
 	"wcwidth": "0.2.3",
